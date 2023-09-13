@@ -7,6 +7,14 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            - uses: shimataro/ssh-key-action@v2
+              with:
+                key: ${{ secrets.ACCESS_KEY }}
+                known_hosts: ${{ secrets.KNOWN_HOST }}
             - uses: actions/checkout@v4
             - run: ls
-            - run: rsync -avz -e "ssh -i ./giang-aws.pem" ./ ubuntu@3.84.177.88:~/my-web/
+            - run: rsync -avz ./ ${USER}@${IP}:~/my-web/
+              env: 
+                USER: ${{ secrets.HOST_USER}}
+                IP: ${{ secrets.HOST_IP}}
+
