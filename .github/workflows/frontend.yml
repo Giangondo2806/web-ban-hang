@@ -17,4 +17,12 @@ jobs:
               env: 
                 USER: ${{ secrets.HOST_USER}}
                 IP: ${{ secrets.HOST_IP}}
-
+            - run: ssh ${USER}@${IP} "sudo rm -rf /var/www/html/*"
+              env: 
+                USER: ${{ secrets.HOST_USER}}
+                IP: ${{ secrets.HOST_IP}}
+            - run: ssh ${USER}@${IP} "sudo mv ~/my-web/* /var/www/html/"
+              env: 
+                USER: ${{ secrets.HOST_USER}}
+                IP: ${{ secrets.HOST_IP}}
+ 
